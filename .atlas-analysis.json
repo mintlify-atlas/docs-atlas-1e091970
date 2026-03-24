@@ -1,0 +1,125 @@
+{
+  "projectType": "sdk-library",
+  "projectName": "bbolt",
+  "projectDescription": "A pure Go embedded key/value database library with ACID transactions, B+tree storage, and lock-free MVCC for applications that need reliable local persistence without a full database server.",
+  "theme": "palm",
+  "primaryColor": "#4A90D9",
+  "lightColor": "#E8F4FD",
+  "darkColor": "#1A3A5C",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "installation"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/database",
+              "concepts/buckets",
+              "concepts/transactions",
+              "concepts/cursors"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/key-value-operations",
+              "guides/iterating-keys",
+              "guides/nested-buckets",
+              "guides/batch-writes",
+              "guides/backups",
+              "guides/read-only-mode",
+              "guides/statistics"
+            ]
+          },
+          {
+            "group": "CLI Tool",
+            "pages": [
+              "cli/overview",
+              "cli/commands"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "advanced/performance",
+              "advanced/caveats",
+              "advanced/internals"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Core Types",
+            "pages": [
+              "api/db",
+              "api/bucket",
+              "api/tx",
+              "api/cursor"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "api/options",
+              "api/errors"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Embedded pure-Go key/value store — no external dependencies or server required",
+    "Fully serializable ACID transactions with single-file persistence",
+    "B+tree data structure optimized for fast sequential reads and range scans",
+    "Lock-free MVCC: concurrent read-only transactions with a single writer",
+    "Hierarchical nested buckets for logical data grouping",
+    "Cursor-based iteration in lexicographical byte order",
+    "Hot database backups without blocking reads or writes",
+    "Read-only mode for safe multi-process shared access",
+    "Batch write API for amortizing write overhead across goroutines",
+    "Built-in CLI tool (bbolt) for inspection, compaction, and surgery"
+  ],
+  "publicApiSurface": [
+    "Open(path string, mode os.FileMode, options *Options) (*DB, error)",
+    "DB.Close() error",
+    "DB.Begin(writable bool) (*Tx, error)",
+    "DB.Update(fn func(*Tx) error) error",
+    "DB.View(fn func(*Tx) error) error",
+    "DB.Batch(fn func(*Tx) error) error",
+    "DB.Sync() error",
+    "DB.Stats() Stats",
+    "Tx.Bucket(name []byte) *Bucket",
+    "Tx.CreateBucket(name []byte) (*Bucket, error)",
+    "Tx.CreateBucketIfNotExists(name []byte) (*Bucket, error)",
+    "Tx.DeleteBucket(name []byte) error",
+    "Tx.ForEach(fn func(name []byte, b *Bucket) error) error",
+    "Tx.Commit() error",
+    "Tx.Rollback() error",
+    "Tx.WriteTo(w io.Writer) (n int64, err error)",
+    "Bucket.Get(key []byte) []byte",
+    "Bucket.Put(key []byte, value []byte) error",
+    "Bucket.Delete(key []byte) error",
+    "Bucket.Cursor() *Cursor",
+    "Bucket.NextSequence() (uint64, error)",
+    "Bucket.ForEach(fn func(k, v []byte) error) error",
+    "Cursor.First() (key []byte, value []byte)",
+    "Cursor.Last() (key []byte, value []byte)",
+    "Cursor.Next() (key []byte, value []byte)",
+    "Cursor.Prev() (key []byte, value []byte)",
+    "Cursor.Seek(seek []byte) (key []byte, value []byte)",
+    "Compact(dst, src *DB, txMaxSize int64) error"
+  ]
+}
